@@ -18,7 +18,7 @@ public class MatchFinder : MonoBehaviour
 
     public void FindAllMatches() // eslesen ogeleri bulmak ve tutmak icin fonksiyon
     {
-       // currentMatches.Clear(); // eslesen ogeleri temizlemek icin.(oyun acildiginda surekli tekrar etmesin dye)
+       currentMatches.Clear(); // eslesen ogeleri temizlemek icin.(oyun acildiginda surekli tekrar etmesin dye)
 
 
         for (int x = 0; x< board.width; x++)

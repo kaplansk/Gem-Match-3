@@ -105,6 +105,7 @@ MonoBehaviour:
   board: {fileID: 0}
   type: 0
   isMatched: 0
+  destroyEffect: {fileID: 8063079519598635561, guid: b52391c7877e80345bd817ad9f8510f8, type: 3}
 --- !u!61 &978756259456930113
 BoxCollider2D:
   m_ObjectHideFlags: 0

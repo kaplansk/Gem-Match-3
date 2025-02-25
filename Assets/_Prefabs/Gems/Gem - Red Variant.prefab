@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4831008434693697678, guid: 0147eaca893ced948a5bf542324d6733, type: 3}
+      propertyPath: destroyEffect
+      value: 
+      objectReference: {fileID: 1413317073371398853, guid: 84bf6c1bbbbcc5a419c28de1ac5c9594, type: 3}
     - target: {fileID: 5780974525548975032, guid: 0147eaca893ced948a5bf542324d6733, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
