@@ -35,6 +35,8 @@ public class Gem : MonoBehaviour
 
     public GameObject destroyEffect;
 
+    public int blastSize = 2;
+
     void Start()
     {
         

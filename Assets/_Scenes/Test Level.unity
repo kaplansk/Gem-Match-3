@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c202b824cd85e14f930e3d6af2f6351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 7
-  height: 7
+  width: 8
+  height: 8
   bgTilePrefab: {fileID: 3529158729027621906, guid: 1726156d36af5cb40b4888e076451845, type: 3}
   gems:
   - {fileID: 4831008434693697678, guid: 0147eaca893ced948a5bf542324d6733, type: 3}
@@ -297,6 +297,8 @@ MonoBehaviour:
   gemSpeed: 10
   matchFind: {fileID: 0}
   currentState: 1
+  bomb: {fileID: 1622505935086232454, guid: 8688a83030f3b2749aa95e97886a1bab, type: 3}
+  bombChance: 2
 --- !u!4 &768449439
 Transform:
   m_ObjectHideFlags: 0
