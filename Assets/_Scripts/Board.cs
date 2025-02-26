@@ -25,9 +25,15 @@ public class Board : MonoBehaviour
     public Gem bomb;
     public float bombChance = 2f;
 
+    [HideInInspector]
+    public RoundManager roundMan;
+
+    private float bonusMulti;
+    public float bonusAmount = .5f;
     private void Awake()
     {
         matchFind = FindFirstObjectByType<MatchFinder>();
+        roundMan = FindObjectOfType<RoundManager>();
     }
 
     void Start()
@@ -40,8 +46,13 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-           
-          //  matchFind.FindAllMatches();
+
+        //  matchFind.FindAllMatches();
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ShuffleBoard();
+        }
         
     }
 
@@ -136,6 +147,7 @@ public class Board : MonoBehaviour
         {
             if (matchFind.currentMatches[i] != null)
             {
+                ScoreCheck(matchFind.currentMatches[i]);
                 DestroyMatchedGemAt(matchFind.currentMatches[i].posIndex);
             }
         }
@@ -182,13 +194,16 @@ public class Board : MonoBehaviour
 
         if (matchFind.currentMatches.Count > 0)
         {
-            yield return new WaitForSeconds(.5f);
+            bonusMulti++;
+            yield return new WaitForSeconds(.3f);
             DestroyMatches();
         }
         else
         {
             yield return new WaitForSeconds(.5f);
             currentState = BoardState.move;
+            
+            bonusMulti = 0; 
         }
            
         
@@ -238,7 +253,54 @@ public class Board : MonoBehaviour
     }
 
 
+    public void ShuffleBoard() // karistirma mekanigi S tusu atandi
+    {
+        if (currentState != BoardState.wait)
+        {
+            currentState = BoardState.wait;
+
+            List<Gem> gemsFromBoard = new List<Gem>();
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    gemsFromBoard.Add(allGems[x, y]);
+                    allGems[x, y] = null;
+                }
+            }
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int gemToUse = Random.Range(0, gemsFromBoard.Count);
+
+                    int iterations = 0;
+                    while (MatchesAt(new Vector2Int(x, y), gemsFromBoard[gemToUse]) && iterations < 100 && gemsFromBoard.Count > 1)
+                    {
+                        gemToUse = Random.Range(0, gemsFromBoard.Count);
+                        iterations++;
+                    }
+                    gemsFromBoard[gemToUse].SetupGem(new Vector2Int(x, y), this);
+                    allGems[x,y] = gemsFromBoard[gemToUse];
+                    gemsFromBoard.RemoveAt(gemToUse);
+                }
+            }
+            StartCoroutine(FillBoardCo());
+        } 
+
+    }
 
 
+    public void ScoreCheck(Gem gemToCheck)
+    {
+        roundMan.currentScore += gemToCheck.scoreValue;
+        
+        if(bonusMulti > 0)
+        {
+            float bonusToAdd =gemToCheck.scoreValue *bonusMulti * bonusAmount;
+            roundMan.currentScore += Mathf.RoundToInt(bonusToAdd);
+        }
+    }
 
 }
